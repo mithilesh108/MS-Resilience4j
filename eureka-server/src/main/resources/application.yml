@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: EUREKA-SERVER
+server:
+  servlet:
+    context-path: /admin
+  port: 8762
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
