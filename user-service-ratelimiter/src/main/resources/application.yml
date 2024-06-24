@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: USER-SERVICE
+server:
+  port: 8081
+  servlet:
+    context-path: /user
+# eureka server registry for user service as client
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8762/admin/eureka/
+
+resilience4j:
+  ratelimiter:
+    instances:
+      catalogServiceName:
+        limitRefreshPeriod: 5s
+        limitForPeriod: 2   #  5 sec me 2 request ko allow krenge
+        timeoutDuration: 0s # 500ms

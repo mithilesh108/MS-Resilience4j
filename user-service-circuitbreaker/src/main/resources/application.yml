@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: USER-SERVICE-CIRCUIT-BREAKER
+server:
+  port: 8081
+  servlet:
+    context-path: /user
+# eureka server registry for user service as client
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8762/admin/eureka/
+
+resilience4j:
+  
+  circuitbreaker:
+    instances:
+      catalogServiceId:
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 15s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        recordExceptions:
+          - java.lang.ArrayIndexOutOfBoundsException
+          - java.util.concurrent.TimeoutException
+        ignoreExceptions:
+            - java.lang.IndexOutOfBoundsException
+
+  retry:
+    instances:
+      catalogServiceName:
+        maxAttempts: 5
+        waitDuration: 2s
+        retryExceptions:
+          - java.lang.ArrayIndexOutOfBoundsException
+          - java.util.concurrent.TimeoutException
+        ignoreExceptions:
+          - java.lang.IndexOutOfBoundsException
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*" # health, circuitbreakers
+  endpoint:
+    health:
+      show-details: always

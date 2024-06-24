@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: CATALOG-SERVICE
+server:
+  port: 8083
+  servlet:
+    context-path: /catalog
+# eureka server registry for user service as client
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8762/admin/eureka/
+
