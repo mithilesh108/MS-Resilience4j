@@ -17,13 +17,14 @@
 *.ear
 *.zip
 *.tar.gz
+*.gitignore
 *.rar
 # to skips .settings folder as well as inside dire and files
 *.settings
 *.idea
 *.mvn
-*mvn
-*HELP
+mvnw
+HELP
 *.classpath
 *.project
 # to skips target folder as well as inside dire and files
